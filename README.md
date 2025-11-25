@@ -81,6 +81,8 @@ It flags extremes using SD (Z-score), MAD (robust Z), and IQR rules, adds ranks,
   %outlier_MAD(data=advs, var=aval, by=paramcd, criteria=4, out=mad_out);
 ~~~
 
+<img width="486" height="353" alt="image" src="https://github.com/user-attachments/assets/e19aa9ef-a5b8-4d14-8bff-c4a1cc72895a" />
+
 ### Notes:
   - BY processing is performed only when BY is provided.
   - BY variable must be a single variable (multiple BY variables are not supported).
@@ -121,6 +123,9 @@ It flags extremes using SD (Z-score), MAD (robust Z), and IQR rules, adds ranks,
   %outlier_IQR(data=adsl, var=age);
   %outlier_IQR(data=advs, var=aval, by=paramcd, out=iqr_out);
 ~~~
+
+<img width="746" height="362" alt="image" src="https://github.com/user-attachments/assets/435a48c9-e0a2-4b0a-a454-65891587077e" />
+
 
 ### Notes:  
   - BY processing is performed only when BY is provided.
