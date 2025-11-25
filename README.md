@@ -259,11 +259,16 @@ run;
 
 <img width="490" height="370" alt="image" src="https://github.com/user-attachments/assets/fb871a95-b2c4-4b6f-9a9e-ffc6ebfb8fb6" />
 
-<img width="169" height="209" alt="image" src="https://github.com/user-attachments/assets/6c309aa2-7b85-44f3-b38a-fb6870933308" />
+<img width="169" height="209" alt="image" src="https://github.com/user-attachments/assets/6c309aa2-7b85-44f3-b38a-fb6870933308" />  
 
+  
 ~~~sas
   %outlier_all3(data=advs, var=aval, by=paramcd, SD_criteria=2.8, MAD_criteria=3.8);
 ~~~
+<img width="757" height="320" alt="image" src="https://github.com/user-attachments/assets/826757d5-fb7d-4927-9574-5a0daa5c81df" />  
+<img width="275" height="419" alt="image" src="https://github.com/user-attachments/assets/fbf155d2-2d9f-4575-8c4f-19d3fad298a6" />  
+<img width="97" height="283" alt="image" src="https://github.com/user-attachments/assets/3334ceee-f19c-4285-a6bd-beff2b5d9ded" />  
+
 
 ### Notes:
   - BY processing is performed only when BY is provided.
