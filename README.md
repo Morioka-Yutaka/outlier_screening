@@ -167,6 +167,82 @@ It flags extremes using SD (Z-score), MAD (robust Z), and IQR rules, adds ranks,
   Generates a PROC SGPLOT figure and a PROC UNIVARIATE ExtremeObs table.
 ~~~
 
+### Test Data
+~~~sas
+data adsl;
+  call streaminit(20251126);
+  length USUBJID $12 SEX $1 TRT01A $8;
+  do i = 1 to 200;
+    USUBJID = cats("SUBJ", put(i, z4.));
+    SEX = ifc(rand("Bernoulli", 0.5)=1, "M", "F");
+    TRT01A = ifc(rand("Bernoulli", 0.5)=1, "Drug", "Placebo");
+    AGE = round(rand("Normal", 55, 10), 1);
+    if AGE < 18 then AGE = 18;
+    if AGE > 90 then AGE = 90;
+    output;
+  end;
+  do j = 1 to 6;
+    i + 1;
+    USUBJID = cats("SUBJ", put(i, z4.));
+    SEX = ifc(mod(i,2)=0, "M", "F");
+    TRT01A = ifc(mod(i,2)=0, "Drug", "Placebo");
+    select (j);
+      when (1,2) AGE = 19;          
+      when (3)   AGE = 95;          
+      when (4)   AGE = 101;         
+      when (5)   AGE = 17;          
+      when (6)   AGE = 110;         
+      otherwise;
+    end;
+    output;
+  end;
+  drop i j;
+run;
+
+data advs;
+  call streaminit(20251126);
+  length USUBJID $12 PARAMCD $8;
+
+  array params[3] $8 _temporary_ ("SBP","DBP","HR");
+
+  do i = 1 to 160;
+    USUBJID = cats("SUBJ", put(i, z4.));
+
+    do p = 1 to dim(params);
+      PARAMCD = params[p];
+
+      select (PARAMCD);
+        when ("SBP") do;  
+          AVAL = rand("Normal", 120, 12);
+          if i in (5, 77)  then AVAL = 175;
+          if i in (33)     then AVAL = 85;
+        end;
+
+        when ("DBP") do;  
+          AVAL = rand("Normal", 75, 8);
+          if i in (12, 90) then AVAL = 110;
+          if i in (48)     then AVAL = 45;
+        end;
+
+        when ("HR") do;   
+          AVAL = rand("Normal", 70, 10);
+          if i in (22)     then AVAL = 130;
+          if i in (101)    then AVAL = 35;
+        end;
+
+        otherwise;
+      end;
+
+      AVAL = round(AVAL, 0.1);
+
+      output;
+    end;
+  end;
+
+  drop i p;
+run;
+~~~
+
 ### Usage Example:
 ~~~sas
   %outlier_all3(data=adsl, var=age);
