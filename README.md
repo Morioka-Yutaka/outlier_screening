@@ -123,5 +123,62 @@ It flags extremes using SD (Z-score), MAD (robust Z), and IQR rules, adds ranks,
   - BY processing is performed only when BY is provided.
   - BY variable must be a single variable (multiple BY variables are not supported).
 
+---
+
+## `%outlier_all3()` macro <a name="outlierall3-macro-1"></a> ######
+### Purpose:  
+  Run three outlier detection methods in sequence and provide a unified  
+  review-ready output plus visualization:  
+  ~~~text
+    1) SD-based Z-score method   (%outlier_SD)  
+    2) MAD robust Z-score method(%outlier_MAD)  
+    3) IQR rule method          (%outlier_IQR)
+  ~~~
+  After combining flags, this macro also:  
+    - Adds dense ranks in ascending and descending order of &var
+      (asc_rank, desc_rank) for quick extreme-value review.
+    - Produces a scatter + boxplot figure labeled by detected methods.
+    - Prints PROC UNIVARIATE ExtremeObs for &var.
+
+### Parameters:  
+~~~text
+  data         = Input dataset name.
+  var          = Analysis variable (single numeric variable).
+  by           = (Optional) BY variable for group-wise detection/plotting.
+                 Note: BY supports ONE variable only.
+  SD_criteria  = Z-score threshold for SD method.
+                 Default: 3
+  MAD_criteria = Robust Z-score threshold for MAD method.
+                 Default: 3.5
+~~~
+
+### Output:  
+~~~text
+  Creates the following datasets in WORK:
+    outlier_<data>_sd    : SD method results.
+    outlier_<data>_mad   : MAD method results.
+    outlier_<data>_iqr   : IQR method results.
+    outlier_<data>_all3   : Combined dataset including:
+         outlier_SDFL, outlier_MADFL, outlier_IQR1_5FL, outlier_IQR3FL,
+         asc_rank, desc_rank,
+         and retained absolute scores (std_<var>_abs, mad_<var>_abs).
+    outlier_<data>_graph : Dataset for plotting with method label text.
+
+  Generates a PROC SGPLOT figure and a PROC UNIVARIATE ExtremeObs table.
+~~~
+
+### Usage Example:
+~~~sas
+  %outlier_all3(data=adsl, var=age);
+~~~
+
+~~~sas
+  %outlier_all3(data=advs, var=aval, by=paramcd, SD_criteria=2.8, MAD_criteria=3.8);
+~~~
+
+### Notes:
+  - BY processing is performed only when BY is provided.
+  - BY variable must be a single variable (multiple BY variables are not supported).
+
   
 ---
