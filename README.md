@@ -124,8 +124,7 @@ It flags extremes using SD (Z-score), MAD (robust Z), and IQR rules, adds ranks,
   %outlier_IQR(data=advs, var=aval, by=paramcd, out=iqr_out);
 ~~~
 
-<img width="746" height="362" alt="image" src="https://github.com/user-attachments/assets/435a48c9-e0a2-4b0a-a454-65891587077e" />
-
+<img width="757" height="387" alt="image" src="https://github.com/user-attachments/assets/e013c8e9-cc25-46e5-8729-bd353091148d" />
 
 ### Notes:  
   - BY processing is performed only when BY is provided.
@@ -255,6 +254,12 @@ run;
 ~~~sas
   %outlier_all3(data=adsl, var=age);
 ~~~
+
+<img width="739" height="372" alt="image" src="https://github.com/user-attachments/assets/eb9109bc-be94-4b09-ac51-e7b2f66fd97c" />  
+
+<img width="490" height="370" alt="image" src="https://github.com/user-attachments/assets/fb871a95-b2c4-4b6f-9a9e-ffc6ebfb8fb6" />
+
+<img width="169" height="209" alt="image" src="https://github.com/user-attachments/assets/6c309aa2-7b85-44f3-b38a-fb6870933308" />
 
 ~~~sas
   %outlier_all3(data=advs, var=aval, by=paramcd, SD_criteria=2.8, MAD_criteria=3.8);
