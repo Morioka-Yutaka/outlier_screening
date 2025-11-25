@@ -37,6 +37,9 @@ It flags extremes using SD (Z-score), MAD (robust Z), and IQR rules, adds ranks,
   %outlier_SD(data=advs, var=aval, by=paramcd, criteria=2.5, out=sd_out);
 ~~~
 
+<img width="656" height="385" alt="image" src="https://github.com/user-attachments/assets/20588328-a534-4c4c-91d0-c6eb751d0e3b" />
+
+
 ### Notes:  
   - BY processing is performed only when BY is provided.
   - BY variable must be a single variable (multiple BY variables are not supported).
