@@ -85,3 +85,43 @@ It flags extremes using SD (Z-score), MAD (robust Z), and IQR rules, adds ranks,
     standard normal Z-scores under normality.
   
 ---
+
+## `%outlier_iqr()` macro <a name="outlieriqr-macro-2"></a> ######
+### Purpose:
+  Detect outliers based on the Interquartile Range (IQR) rule.  
+  Flags observations outside:  
+    - Q1 - 1.5*IQR to Q3 + 1.5*IQR (mild outliers)  
+    - Q1 - 3*IQR   to Q3 + 3*IQR   (extreme outliers)  
+
+### Parameters:
+~~~text
+  data      = Input dataset name.
+  var       = Analysis variable (single numeric variable).
+  by        = (Optional) BY variable for group-wise detection.
+              Note: BY supports ONE variable only.
+  out       = Output dataset name.
+              Default: outlier_IQR
+~~~
+
+### Output:  
+~~~text
+  The output dataset contains all original variables plus:
+    Q1, Q3, IQR               : Quartiles and IQR.
+    Lower1_5, Upper1_5        : 1.5*IQR bounds.
+    Lower3, Upper3            : 3*IQR bounds.
+    outlier_IQR1_5FL          : Mild outlier flag ("Y"/"N").
+    outlier_IQR3FL            : Extreme outlier flag ("Y"/"N").
+~~~
+
+### Usage Example:  
+~~~sas
+  %outlier_IQR(data=adsl, var=age);
+  %outlier_IQR(data=advs, var=aval, by=paramcd, out=iqr_out);
+~~~
+
+### Notes:  
+  - BY processing is performed only when BY is provided.
+  - BY variable must be a single variable (multiple BY variables are not supported).
+
+  
+---
